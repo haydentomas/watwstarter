@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@source "./**/*.{php,html,js}";
+
+
+@import "./parts/menu.css"; 
+@import "./parts/theme.css";
+@import "./parts/base.css";
+@import "./parts/fonts.css";
+@import "./parts/components.css";
+@import "./parts/utilities.css";
+@import "./parts/custom.css";
+
+
+@plugin "@tailwindcss/typography";
+
+

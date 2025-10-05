@@ -1,0 +1,110 @@
+/* ================================
+   Editor fonts (self-hosted, no Tailwind)
+   File: /src/editor-fonts.css
+   Fonts folder: /src/fonts/
+   ================================ */
+
+/* Faces (URLs are relative to this file) */
+@font-face {
+  font-family: "Merriweather";
+  src: url("./fonts/merriweather-v32-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Merriweather";
+  src: url("./fonts/merriweather-v32-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cabin";
+  src: url("./fonts/cabin-v34-latin-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cabin";
+  src: url("./fonts/cabin-v34-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Local tokens (editor isn’t processed by Tailwind, so define here) */
+:root {
+  --font-sans: "Cabin", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-serif: "Merriweather", Georgia, "Times New Roman", serif;
+}
+
+/* Base stack + smoothing in editor iframe */
+.editor-styles-wrapper {
+  font-family: var(--font-serif);           /* Body = Merriweather */
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+
+/* Default headings stack */
+.editor-styles-wrapper :where(h1,h2,h3,h4,h5,h6) {
+  font-family: var(--font-sans);            /* Headings = Cabin */
+  font-weight: 600;                         /* semibold */
+  letter-spacing: 0;
+  margin: 0 0 0.5em 0;
+}
+
+/* Body-ish elements keep body stack */
+.editor-styles-wrapper :where(p, ul, ol, blockquote, figcaption, input, textarea, button) {
+  font-family: var(--font-serif);
+  margin: 0 0 1em 0;
+}
+
+/* ---------- Heading scale (plain CSS; matches text- utilities) ---------- */
+/* H1 ~ text-4xl md:text-5xl; leading-tight */
+.editor-styles-wrapper :where(h1) {
+  font-size: 2.25rem;   /* 36px */
+  line-height: 1.25;    /* leading-tight */
+}
+@media (min-width: 768px) {
+  .editor-styles-wrapper :where(h1) { font-size: 3rem; } /* 48px */
+}
+
+/* H2 ~ text-3xl md:text-4xl; leading-tight */
+.editor-styles-wrapper :where(h2) {
+  font-size: 1.875rem;  /* 30px */
+  line-height: 1.25;
+}
+@media (min-width: 768px) {
+  .editor-styles-wrapper :where(h2) { font-size: 2.25rem; } /* 36px */
+}
+
+/* H3 ~ text-2xl md:text-3xl; leading-snug */
+.editor-styles-wrapper :where(h3) {
+  font-size: 1.5rem;    /* 24px */
+  line-height: 1.375;   /* leading-snug */
+}
+@media (min-width: 768px) {
+  .editor-styles-wrapper :where(h3) { font-size: 1.875rem; } /* 30px */
+}
+
+/* Optional: H4–H6 */
+.editor-styles-wrapper :where(h4) { font-size: 1.25rem;  line-height: 1.375; }
+@media (min-width: 768px) { .editor-styles-wrapper :where(h4){ font-size: 1.5rem; } }
+
+.editor-styles-wrapper :where(h5) { font-size: 1.125rem; line-height: 1.375; }
+@media (min-width: 768px) { .editor-styles-wrapper :where(h5){ font-size: 1.25rem; } }
+
+.editor-styles-wrapper :where(h6) { font-size: 1rem;     line-height: 1.375; }
+@media (min-width: 768px) { .editor-styles-wrapper :where(h6){ font-size: 1.125rem; } }
+
+/* Teach WP preset-based blocks our stacks */
+.editor-styles-wrapper {
+  --wp--preset--font-family--system-font: var(--font-sans) !important;
+  --wp--preset--font-family--body:        var(--font-serif) !important;
+  --wp--preset--font-family--heading:     var(--font-sans) !important;
+}

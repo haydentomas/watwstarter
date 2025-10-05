@@ -1,0 +1,46 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+.cache/
+*.log
+
+# Tailwind/CLI artifacts
+.postcssrc
+.pnp.*
+.pnp.js
+
+# System
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.*
+!.env.example
+
+# WordPress
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/wflogs/
+wp-content/debug.log
+
+# Composer
+/vendor/
+
+# Local dev
+/.idea/
+/.vscode/
+/*.code-workspace
+
+# OS
+*.swp
+*.swo

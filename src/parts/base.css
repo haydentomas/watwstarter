@@ -1,0 +1,28 @@
+@layer base {
+  /* Body = Merriweather (serif) */
+  html {
+    font-family: var(--font-serif);
+     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Better shaping/kerning on many browsers */
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    font-variant-ligatures: common-ligatures;
+     font-synthesis: weight style; /* or just 'style' if you want to forbid faux bold */
+  }
+
+  /* Headings = Cabin (sans) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+  }
+
+  /* Editor canvas (harmless on front; ensures parity if this file is ever used in admin) */
+  .editor-styles-wrapper,
+  .editor-styles-wrapper .block-editor-writing-flow,
+  .editor-styles-wrapper .block-editor-block-list__layout {
+    font-family: var(--font-serif);
+  }
+  .editor-styles-wrapper :where(h1,h2,h3,h4,h5,h6) {
+    font-family: var(--font-sans);
+  }
+}

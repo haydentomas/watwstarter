@@ -134,20 +134,74 @@ function watwstarter_widgets_init() {
 }
 add_action( 'widgets_init', 'watwstarter_widgets_init' );
 
-/**
- * Enqueue scripts and styles.
- */
+/* -----------------------------------------------------------------------------
+ * Front-end styles & scripts (global)
+ * -------------------------------------------------------------------------- */
 function watwstarter_scripts() {
-	wp_enqueue_style( 'watwstarter-style', get_stylesheet_uri(), array(), _S_VERSION );
-	wp_style_add_data( 'watwstarter-style', 'rtl', 'replace' );
+	// Try Tailwind output (or fallback to style.css)
+	$tailwind_rel  = '/src/output.css';
+	$tailwind_file = get_template_directory() . $tailwind_rel;
+	$tailwind_url  = get_template_directory_uri() . $tailwind_rel;
 
-	wp_enqueue_script( 'watwstarter-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	if ( file_exists( $tailwind_file ) ) {
+		wp_enqueue_style(
+			'watwstarter-tailwind',
+			$tailwind_url,
+			[],
+			filemtime( $tailwind_file ) // cache-bust on rebuilds
+		);
+	} else {
+		// Fallback to the theme stylesheet so fresh clones still render
+		wp_enqueue_style(
+			'watwstarter-style',
+			get_stylesheet_uri(),
+			[],
+			defined('_S_VERSION') ? _S_VERSION : wp_get_theme()->get('Version')
+		);
+		wp_style_add_data( 'watwstarter-style', 'rtl', 'replace' );
+	}
 
+	// Keep the default Underscores navigation script if present
+	$nav_rel  = '/js/navigation.js';
+	$nav_file = get_template_directory() . $nav_rel;
+	if ( file_exists( $nav_file ) ) {
+		wp_enqueue_script(
+			'watwstarter-navigation',
+			get_template_directory_uri() . $nav_rel,
+			[],
+			filemtime( $nav_file ),
+			true
+		);
+	}
+
+	// Optional theme bundle (ESM) — only enqueue if it exists
+	$bundle = file_exists( get_template_directory() . '/dist/bundle.min.js' )
+		? '/dist/bundle.min.js'
+		: ( file_exists( get_template_directory() . '/dist/bundle.js' ) ? '/dist/bundle.js' : '' );
+
+	if ( $bundle ) {
+		$abs = get_template_directory() . $bundle;
+		wp_enqueue_script(
+			'watwstarter-bundle',
+			get_template_directory_uri() . $bundle,
+			[],
+			filemtime( $abs ),
+			true
+		);
+		// Mark as an ES module for modern builds
+		if ( function_exists( 'wp_script_add_data' ) ) {
+			wp_script_add_data( 'watwstarter-bundle', 'type', 'module' );
+		}
+	}
+
+	// Threaded comments (WordPress core)
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'watwstarter_scripts' );
+// Load early so Tailwind lands before most plugin styles
+add_action( 'wp_enqueue_scripts', 'watwstarter_scripts', 5 );
+
 
 /**
  * Implement the Custom Header feature.

@@ -1,0 +1,32 @@
+/* Responsive, centered container */
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-inline: auto;     /* centers */
+    padding-inline: 1rem;    /* default gutter */
+    max-width: 100%;
+  }
+
+  /* >= 480px */
+  @media (width >= 480px) {
+    .container {
+      max-width: 44rem;      /* ~704px */
+    }
+  }
+
+  /* >= 768px */
+  @media (width >= 768px) {
+    .container {
+      max-width: 60rem;      /* ~960px */
+      padding-inline: 1.25rem;
+    }
+  }
+
+  /* >= 976px */
+  @media (width >= 976px) {
+    .container {
+      max-width: 75rem;      /* 1200px */
+      padding-inline: 1.5rem;
+    }
+  }
+}
