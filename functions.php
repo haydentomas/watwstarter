@@ -17,6 +17,9 @@ require_once get_template_directory() . '/inc/assets.php';
 /** Block editor (fonts, editor-only assets) */
 require_once get_template_directory() . '/inc/editor.php';
 
+/** Woocommerce */
+require_once get_template_directory() . '/inc/woocommerce.php';
+
 /** Widgets / sidebars (keep for now) */
 require_once get_template_directory() . '/inc/widgets.php';
 

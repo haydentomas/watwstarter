@@ -1,17 +1,31 @@
 @import "tailwindcss";
 
+/* Tell Tailwind where to scan for classes */
 @source "./**/*.{php,html,js}";
+/* (Later, when your blocks live in a plugin, you can add another source line:
+   @source "../plugins/your-acf-blocks-plugin/**/
 
-
-@import "./parts/menu.css"; 
+/* Design tokens first */
 @import "./parts/theme.css";
-@import "./parts/base.css";
+
+/* Font-face declarations next (so base/components can use them) */
 @import "./parts/fonts.css";
-@import "./parts/components.css";
-@import "./parts/utilities.css";
-@import "./parts/custom.css";
 
-
+/* Tailwind plugin early so it's available for any subsequent @apply */
 @plugin "@tailwindcss/typography";
 
+/* Base + global tweaks */
+@import "./parts/base.css";
 
+/* Components (menu is a component too) */
+@import "./parts/components.css";
+@import "./parts/menu.css";
+
+/* Small project utilities */
+@import "./parts/utilities.css";
+
+/* Project-level overrides */
+@import "./parts/custom.css";
+
+/* Woo last so it wins specificity battles */
+@import "./parts/woocommerce.css";
